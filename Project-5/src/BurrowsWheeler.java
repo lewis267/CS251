@@ -1,12 +1,4 @@
-import java.util.stream.IntStream;
-
 public class BurrowsWheeler {
-
-    //<editor-fold desc="Globals">
-
-
-
-    //</editor-fold>
 
     // apply Burrows-Wheeler encoding, reading from standard input and writing to standard output
     public static void encode()
@@ -17,12 +9,13 @@ public class BurrowsWheeler {
 
         // create the table
         BW_String[] table = new BW_String[input.length];
-        for (int i = 0; i < input.length; i++) {
-            table[i] = new BW_String(i, s);
+        for (int shift = 0; shift < input.length; shift++) {
+            table[shift] = new BW_String(shift, s);
         }
 
         // sort the table
-        int row = BW_String.sort(table, input);
+        Quick3String q3s = new Quick3String();
+        int row = q3s.sort(table);
 
         // output the result
         BW_String.outputResult(table, input, row);
@@ -52,9 +45,8 @@ public class BurrowsWheeler {
 
 
     public static class BW_String {
-
-        int index;
-        int length;
+        private int index;
+        private int length;
         String str; // untouched string so that it can be huge and used by reference.
 
         BW_String(int i, String s, int length) {
@@ -103,6 +95,18 @@ public class BurrowsWheeler {
             int new_len = (limit - offset);
 
             return new BW_String(new_idx, this.str, new_len);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            BW_String other = (BW_String)o;
+            if (this.length() != other.length()) return false;
+
+            for (int i = 0; i < this.length(); i++) {
+                if (this.charAt(i) != other.charAt(i)) return false;
+            }
+
+            return true;
         }
 
         static void outputResult(BW_String[] table, char[] s, int row) {

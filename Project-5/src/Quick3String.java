@@ -10,12 +10,15 @@
 
 public class Quick3String {
     private static final int CUTOFF =  15;   // cutoff to insertion sort
+    private static int indx = 0;
 
     // sort the array a[] of strings
-    public static void sort(BurrowsWheeler.BW_String[] a) {
+    public static int sort(BurrowsWheeler.BW_String[] a) {
         // StdRandom.shuffle(a);
+        indx = 0;
         sort(a, 0, a.length-1, 0);
         assert isSorted(a);
+        return indx;
     }
 
     // return the dth character of s, -1 if d = length of s
@@ -24,7 +27,6 @@ public class Quick3String {
         if (d == s.length()) return -1;
         return s.charAt(d);
     }
-
 
     // 3-way string quicksort a[lo..hi] starting at dth character
     private static void sort(BurrowsWheeler.BW_String[] a, int lo, int hi, int d) {
@@ -60,6 +62,9 @@ public class Quick3String {
 
     // exchange a[i] and a[j]
     private static void exch(BurrowsWheeler.BW_String[] a, int i, int j) {
+        if (i == indx) indx = j;
+        else if (j == indx) indx = i;
+
         BurrowsWheeler.BW_String temp = a[i];
         a[i] = a[j];
         a[j] = temp;
@@ -70,7 +75,6 @@ public class Quick3String {
         assert v.substring(0, d).equals(w.substring(0, d));
         return v.substring(d).compareTo(w.substring(d)) < 0;
     }
-
 
     // is the array sorted
     private static boolean isSorted(BurrowsWheeler.BW_String[] a) {
