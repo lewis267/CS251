@@ -37,6 +37,8 @@ public class BurrowsWheeler {
      */
     public static void main(String[] args)
     {
+        //encode();
+
         if      (args[0].equals("-")) encode();
         else if (args[0].equals("+")) decode();
         else throw new RuntimeException("Illegal command line argument");
@@ -116,6 +118,7 @@ public class BurrowsWheeler {
                 char c = s[st.index==0 ? s.length - 1 : st.index - 1];
                 BinaryStdOut.write(c);
             }
+            BinaryStdOut.flush();
         }
     }
 }
