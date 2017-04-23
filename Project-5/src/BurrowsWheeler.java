@@ -1,8 +1,10 @@
+import java.util.Arrays;
+
 public class BurrowsWheeler {
 
     // apply Burrows-Wheeler encoding, reading from standard input and writing to standard output
-    public static void encode()
-    {
+    public static void encode() {
+
         // read the input
         String s = BinaryStdIn.readString();
         char[] input = s.toCharArray();
@@ -20,14 +22,44 @@ public class BurrowsWheeler {
         // output the result
         BW_String.outputResult(table, input, row);
     }
+
     // apply Burrows-Wheeler decoding, reading from standard input and writing to standard output
-    public static void decode()
-    {
+    public static void decode() {
+
         // read the input
+        int row = BinaryStdIn.readInt();
         String s = BinaryStdIn.readString();
-        char[] input = s.toCharArray();
+        char[] input = s.toCharArray(); //(right column of the table)
 
+        // get the sorted version of input (left column of the table)
+        char[] sorted_input = input.clone();
+        Arrays.sort(sorted_input);
 
+        // get the next[] list
+        int[] next = new int[input.length]; Arrays.fill(next, -1);
+        boolean[] used = new boolean[input.length]; Arrays.fill(used, false);
+        for (int j = 0; j < sorted_input.length; j++) {
+            char c = sorted_input[j];
+
+            // fill the next for this char c
+            for (int i = 0; i < input.length; i++) {
+
+                // select the first unused instance of this char from the transformed version
+                if (!used[i] && c == input[i]) {
+                    used[i] = true;
+                    next[j] = i;
+                    break;
+                }
+            }
+        }
+
+        // output the un-transformed string
+        int i = row;
+        for (int count = 0; count < next.length; count++) {
+            i = next[i];
+            BinaryStdOut.write(input[i]);
+        }
+        BinaryStdOut.flush();
     }
 
     /**
@@ -35,17 +67,16 @@ public class BurrowsWheeler {
      * if args[0] is '+', apply Burrows-Wheeler decoding
      * @param args
      */
-    public static void main(String[] args)
-    {
-        //encode();
-
+    public static void main(String[] args) {
         if      (args[0].equals("-")) encode();
         else if (args[0].equals("+")) decode();
         else throw new RuntimeException("Illegal command line argument");
     }
 
-
-
+    /**
+     *  A class to handle large quantities of copies of a large string
+     *  by using copied references.
+     */
     public static class BW_String {
         private int index;
         private int length;
