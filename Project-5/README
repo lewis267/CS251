@@ -1,0 +1,21 @@
+
+SPECIAL INSTRUCTIONS
+--------------------
+
+I have an additional file which will need to be compiled before the others 
+if not already compiled.
+
+Please use the following compilation command to compile Quick3String.java:
+    javac -cp .:stdlib.jar:algs4.jar Quick3String.java
+
+
+FILES
+-----
+
+Quick3String.java -
+    A file that contains an altered version of the Quick3String class 
+    provided in algs4.jar.
+
+BurrowsWheeler.java and MoveToFront.java -
+    The two classes required by the project.
+
