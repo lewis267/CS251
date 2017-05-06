@@ -33,5 +33,5 @@ It consists of three different algorithmic components, which are applied in succ
 
 3. Huffman compression. Given a text file in which certain characters appear more frequently than others, compress it by encoding frequently occuring characters with short codewords and rare ones with long codewords.
 
-### Comments
+## Comments
 More extensive project descriptions can be found in the corresponding pdfs.
