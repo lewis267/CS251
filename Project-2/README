@@ -1,0 +1,9 @@
+Patrick Lewis
+No comment.
+
+(Fun)
+Feel free to run Test.java if you'd like.
+It shows times to run a set of random Points and the number of lines found.
+
+called as:
+java -classpath .:stdlib.jar Test 20 20 50 50 100
